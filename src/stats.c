@@ -55,9 +55,11 @@ void print_statistics(unsigned char *arr, int length)
 
 void print_array(unsigned char *arr, int length)
 {
-  int i;
-  for (i = 0; i < length; i++)
-    printf("%d ", arr[i]);
+  #ifdef VERBOSE
+    int i;
+    for (i = 0; i < length; i++)
+      printf("%d ", arr[i]);
+  #endif
 }
 
 unsigned char find_median(unsigned char *arr, int length)
