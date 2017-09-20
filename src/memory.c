@@ -60,37 +60,64 @@ void clear_all(char * ptr, unsigned int size)
 uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
 {
   uint32_t i;
-  for (i = length - 1; i >= 0; i--)
+  uint8_t * buffer = (uint8_t*) (malloc(sizeof(uint8_t) * length));
+  for (i = 0; i < length; i++)
   {
-    *(dst + i) = *(src + i);
-    *(src + i) = 0;
+    *(buffer + i) = *(src + i);
   }
-  // src = dst;
+  for (i = 0; i < length; i++)
+  {
+    *(dst + i) = *(buffer + i);
+  }
+  free(buffer);
   return dst;
 }
 
 uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length)
 {
   uint32_t i;
-  for (i = length - 1; i >= 0; i--)
+  uint8_t * buffer = (uint8_t*) (malloc(sizeof(uint8_t) * length));
+  for (i = 0; i < length; i++)
   {
     *(dst + i) = *(src + i);
   }
+  free(buffer);
   return dst;
 }
 
 uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value)
 {
+  uint32_t i;
+  for (i = 0; i < length; i++)
+  {
+    *(src + i) = value;
+  }
   return src;
 }
 
 uint8_t * my_memzero(uint8_t * src, size_t length)
 {
+  uint32_t i;
+  for (i = 0; i < length; i++)
+  {
+    *(src + i) = 0;
+  }
   return src;
 }
 
 uint8_t * my_reverse(uint8_t * src, size_t length)
 {
+  uint32_t i;
+  uint8_t * buffer = (uint8_t*) (malloc(sizeof(uint8_t) * length));
+  for (i = 0; i < length; i++)
+  {
+    *(buffer + i) = *(src + length - 1 - i);
+  }
+  for (i = 0; i < length; i++)
+  {
+    *(src + i) = *(buffer + i);
+  }
+  free(buffer);
   return src;
 }
 

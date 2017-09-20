@@ -107,10 +107,8 @@ int8_t test_memmove1() {
   }
 
   print_array(set, MEM_SET_SIZE_B);
-  PRINTF("OK\n");
   my_memmove(ptra, ptrb, TEST_MEMMOVE_LENGTH);
   print_array(set, MEM_SET_SIZE_B);
-  PRINTF("OK\n");
 
   for (i = 0; i < TEST_MEMMOVE_LENGTH; i++)
   {
@@ -331,14 +329,14 @@ void course1(void)
 
   results[0] = test_data1();
   results[1] = test_data2();
-  results[2] = test_memmove1();
+  results[2] = test_memmove1(); //PASSED
   results[3] = test_memmove2();
-  results[4] = test_memmove3();
-  results[5] = test_memcopy();
-  results[6] = test_memset();
+  results[4] = test_memmove3(); //PASSED
+  results[5] = test_memcopy(); //PASSED
+  results[6] = test_memset(); //PASSED
   results[7] = test_reverse();
 
-  for ( i = 0; i < TESTCOUNT; i++) 
+  for ( i = 0; i < TESTCOUNT; i++)
   {
     failed += results[i];
   }

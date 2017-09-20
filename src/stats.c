@@ -41,7 +41,8 @@ void print_array(unsigned char *arr, int length)
   #ifdef VERBOSE
     int i;
     for (i = 0; i < length; i++)
-      PRINTF("%d ", arr[i]);
+      PRINTF("%4d", arr[i]);
+    PRINTF("\n");
   #endif
 }
 
