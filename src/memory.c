@@ -22,6 +22,7 @@
  */
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include "memory.h"
 
 /***********************************************************
@@ -58,12 +59,24 @@ void clear_all(char * ptr, unsigned int size)
 
 uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
 {
+  uint32_t i;
+  for (i = length - 1; i >= 0; i--)
+  {
+    *(dst + i) = *(src + i);
+    *(src + i) = 0;
+  }
+  // src = dst;
   return dst;
 }
 
 uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length)
 {
-  return src;
+  uint32_t i;
+  for (i = length - 1; i >= 0; i--)
+  {
+    *(dst + i) = *(src + i);
+  }
+  return dst;
 }
 
 uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value)
@@ -83,10 +96,14 @@ uint8_t * my_reverse(uint8_t * src, size_t length)
 
 int32_t * reserve_words(size_t length)
 {
-  return NULL;
+  int32_t * words = (int32_t*) (malloc(sizeof(int32_t) * length));
+  return words;
 }
 
 void free_words(uint32_t * src)
 {
-  
+  if (src != NULL)
+  {
+    free(src);
+  }
 }
