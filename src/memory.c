@@ -20,6 +20,8 @@
  * @date April 1 2017
  *
  */
+#include <stdint.h>
+#include <stddef.h>
 #include "memory.h"
 
 /***********************************************************
