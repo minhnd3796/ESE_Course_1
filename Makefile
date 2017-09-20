@@ -38,7 +38,7 @@ SPECS = nosys.specs
 CFLAGS = -Wall -Werror -g -O0 -std=c99
 
 # Compiler Flags and Defines
-TARGET = c1m2
+TARGET = c1final
 CPPFLAGS = -D$(PLATFORM) -MMD -MP
 ifeq ($(PLATFORM), HOST)
     CC = gcc
@@ -58,29 +58,32 @@ else
     LDFLAGS = -Wl,-Map=$(TARGET).map -T ../$(LINKER_FILE)
 endif
 
-OBJS = $(SOURCES:.c=.o)
-DEPS = $(SOURCES:.o=.d)
+OBJS = $(*.c=*.o)
 
-%.i: %.c
+stats.i: src/stats.c
+	$(CC) -E $< $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -DVERBOSE -o $@
+
+%.i: src/%.c
 	$(CC) -E $< $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o $@
 
-%.asm: %.c
+%.asm: src/%.c
 	$(CC) -S $< $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o $@
 
-%.o: %.c
+%.o: src/%.c
+	if [ -d "build" ]; then echo "build dir exists"; else mkdir build; fi
 	$(CC) -c $< $(CFLAGS) $(CPPFLAGS) $(INCLUDES) -o $@
-
-.PHONY: compile-all
-compile-all: $(OBJS)
 
 .PHONY: build
 build: compile-all
 	$(CC) $(OBJS) $(CFLAGS) $(CPPFLAGS) $(INCLUDES) $(LDFLAGS) -o $(TARGET).out
 	$(SIZE) -Atd $(OBJS) $(TARGET).out
 
+.PHONY: compile-all
+compile-all: $(OBJS)
+
 $(TARGET).asm: build
 	$(OBJDMP) --disassemble $(TARGET).out > $(TARGET).asm
 
 .PHONY: clean
 clean:
-	rm -f *.o *.out *.map *.asm *.i *.d
+	rm -rf *.o *.out *.map *.asm *.i *.d
