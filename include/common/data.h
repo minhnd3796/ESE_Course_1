@@ -12,11 +12,14 @@
 #ifndef __DATA_H__
 #define __DATA_H__
 
-#define BASE_16 (16)
-#define BASE_10 (10)
-#define BASE_2 (2)
+#define MAX_STR_LEN  (34)
+#define BASE_16      (16)
+#define BASE_10      (10)
+#define BASE_2        (2)
+#define ASCII_OFFSET (48)
 
 #include <stdint.h>
+#include <stdlib.h>
  
 /**
 * @brief Converts data from a standard integer type into an ASCII string
