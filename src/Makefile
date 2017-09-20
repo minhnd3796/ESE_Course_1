@@ -38,7 +38,7 @@ SPECS = nosys.specs
 CFLAGS = -Wall -Werror -g -O0 -std=c99
 
 # Compiler Flags and Defines
-TARGET = c1m2
+TARGET = c1final
 CPPFLAGS = -D$(PLATFORM) -MMD -MP -DVERBOSE -DCOURSE1
 ifeq ($(PLATFORM), HOST)
     CC = gcc
